@@ -64,9 +64,11 @@ showJSStat i (JSPCall p args) =
 showJSStat i (JSReturn e) = blanks i ++ "return " ++ showJSExp e ++";"
 showJSStat i (JSVarDecl vi) = blanks i ++ "var x" ++ show vi ++";"
 
+blanks :: Int -> String
 blanks n = replicate n ' '
 
 --- Shows a JavaScript function declaration as a string in JavaScript syntax.
+showJSFDecl :: JSFDecl -> String
 showJSFDecl (JSFDecl f args body) =
   "function " ++ f ++ "(" ++
       intercalate "," (map showJSExp (map JSIVar args)) ++ ") {\n" ++
