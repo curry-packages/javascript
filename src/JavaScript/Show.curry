@@ -10,7 +10,7 @@ module JavaScript.Show
   ( showJSExp, showJSStat, showJSFDecl )
  where
 
-import List ( intercalate )
+import Data.List ( intercalate )
 
 import JavaScript.Types
 
