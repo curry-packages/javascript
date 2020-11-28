@@ -2,11 +2,10 @@
 --- A library to represent JavaScript programs.
 ---
 --- @author Michael Hanus
---- @version May 2017
---- @category general
+--- @version November 2020
 ------------------------------------------------------------------------------
 
-module JavaScript.Types
+module Language.JavaScript.Types
   ( JSExp(..), JSStat(..), JSBranch(..), JSFDecl(..), jsConsTerm )
  where
 

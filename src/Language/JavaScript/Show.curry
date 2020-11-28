@@ -2,26 +2,25 @@
 --- A library to represent JavaScript programs.
 ---
 --- @author Michael Hanus
---- @version May 2017
---- @category general
+--- @version November 2020
 ------------------------------------------------------------------------------
 
-module JavaScript.Show
+module Language.JavaScript.Show
   ( showJSExp, showJSStat, showJSFDecl )
  where
 
-import List ( intercalate )
+import Data.List ( intercalate )
 
-import JavaScript.Types
+import Language.JavaScript.Types
 
 ------------------------------------------------------------------------------
 --- Shows a JavaScript expression as a string in JavaScript syntax.
 showJSExp :: JSExp -> String
-showJSExp (JSString s) = "\""++s++"\""
+showJSExp (JSString s) = "\"" ++ s ++ "\""
 showJSExp (JSInt i) = show i
 showJSExp (JSBool b) = if b then "true" else "false"
-showJSExp (JSIVar i) = "x"++show i
-showJSExp (JSIArrayIdx ai i) = "x"++show ai++"["++show i++"]"
+showJSExp (JSIVar i) = "x" ++ show i
+showJSExp (JSIArrayIdx ai i) = "x" ++ show ai ++ "[" ++ show i ++ "]"
 showJSExp (JSOp op e1 e2) =
   "(" ++ showJSExp e1 ++ " " ++ op ++ " " ++ showJSExp e2 ++ ")"
 showJSExp (JSFCall f args) =
@@ -39,8 +38,8 @@ showJSStat :: Int -> JSStat -> String
 showJSStat i (JSAssign e1 e2) =
   blanks i ++ showJSExp e1 ++ " = " ++ showJSExp e2 ++";"
 showJSStat i (JSIf e s1 s2) =
-  blanks i ++ "if ("++showJSExp e++") {\n"++
-  concatMap ((++"\n") . (showJSStat (i+2))) s1 ++
+  blanks i ++ "if (" ++ showJSExp e ++ ") {\n" ++
+  concatMap (( ++ "\n") . (showJSStat (i+2))) s1  ++
   if null s2
   then blanks i ++ "}"
   else blanks i ++ "} else {\n" ++
@@ -72,6 +71,6 @@ showJSFDecl :: JSFDecl -> String
 showJSFDecl (JSFDecl f args body) =
   "function " ++ f ++ "(" ++
       intercalate "," (map showJSExp (map JSIVar args)) ++ ") {\n" ++
-  concatMap ((++"\n") . (showJSStat 2)) body ++"}\n\n"
+  concatMap (( ++ "\n") . (showJSStat 2)) body ++ "}\n\n"
 
 ------------------------------------------------------------------------------
